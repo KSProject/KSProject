@@ -101,6 +101,7 @@ p3 <- p3 + theme(
 )
 p3
 ```
+
 ```{r}
 Age_transposed <- as.data.frame(t(Age))
 Age1 <- data.frame(age = row.names(Age_transposed), total = unlist(Age_transposed, use.names = FALSE))
