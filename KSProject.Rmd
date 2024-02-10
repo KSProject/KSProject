@@ -2,7 +2,7 @@
 title: "KSProject"
 author: "Wuge Li"
 date: "2024-02-08"
-output: pdf_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -101,10 +101,33 @@ p3 <- p3 + theme(
 )
 p3
 ```
+```{r}
+Age_transposed <- as.data.frame(t(Age))
+Age1 <- data.frame(age = row.names(Age_transposed), total = unlist(Age_transposed, use.names = FALSE))
+row.names(Age1) <- NULL
+```
+
 
 ```{r}
-p4 <- grid.arrange(p3, p2, p1, ncol = 1, heights = c(2, 1, 1))
+Age1$color_value <- Age1$total / sum(Age1$total)
+p4 <- ggplot(Age1, aes(x = total, y = reorder(age, total), fill = color_value)) +
+  geom_bar(stat="identity", width = 0.7) +
+  scale_fill_gradient(low="lightblue", high="blue") +
+  theme_classic() +
+  theme(legend.position = "none",
+        axis.title.y = element_text(),
+        plot.margin = margin(t = 10, r = 5, b = 10, l = 0, unit = "pt")) +
+  labs(x = NULL, y = "Age")
+p4 <- p4 + theme(
+  axis.title.y = element_text(margin = margin(t = 0, r = 127, b = 0, l = 0, unit = "pt"))
+)
 p4
+```
+
+
+```{r}
+p5 <- grid.arrange(p3, p2, p1, p4, ncol = 1, heights = c(2, 1, 1, 1))
+p5
 ```
 
 
