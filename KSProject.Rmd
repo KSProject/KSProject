@@ -1,0 +1,135 @@
+---
+title: "KSProject"
+author: "Wuge Li"
+date: "2024-02-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(readxl)
+library(dplyr)
+KSdata <- read_excel("KS_data.xlsx", sheet = 1)
+```
+Data tidy
+```{r}
+KSD <- KSdata[2:15, ]
+KSD1 <- KSD |>
+  select(c("...1", "Total references"))
+colnames(KSD1) <- c("KDC", "total")
+```
+
+```{r}
+KSI <- KSdata[18:21, ]
+KSI1 <- KSI |>
+  select(c("...1", "Total references"))
+colnames(KSI1) <- c("KII", "total")
+```
+
+```{r}
+CI <- KSdata[24:27, ]
+CI1 <- CI |>
+  select(c("...1", "Total references"))
+colnames(CI1) <- c("CI", "total")
+```
+
+```{r}
+Age <- KSdata |>
+  select(c(2:5))
+Age <- colSums(Age, na.rm = TRUE)
+Age <- as.data.frame(t(Age))
+rownames(Age) <- 'total'
+colnames(Age) <- c("Under2", "2-4", "5-11", "12-17")
+```
+
+
+Draw graph
+
+```{r}
+library(ggplot2)
+library(gridExtra)
+```
+
+```{r}
+CI1$color_value <- CI1$total / sum(CI1$total)
+p1 <- ggplot(CI1, aes(x = total, y = reorder(CI, total), fill = color_value)) +
+  geom_bar(stat="identity", width = 0.7) +
+  scale_fill_gradient(low="lightgreen", high="green") +
+  theme_classic() +
+  theme(legend.position = "none",
+        plot.margin = margin(t = 10, r = 5, b = 10, l = 3, unit = "pt")) +
+  labs(x = NULL, y = "Caregiver 
+Impacts")
+p1 <- p1 + theme(
+  axis.title.y = element_text(margin = margin(t = 0, r = 10, b = 0, l = 0, unit = "pt"))
+)
+p1
+```
+
+```{r}
+KSI1$color_value <- KSI1$total / sum(KSI1$total)
+p2 <- ggplot(KSI1, aes(x = total, y = reorder(KII, total), fill = color_value)) +
+  geom_bar(stat="identity", width = 0.7) +
+  scale_fill_gradient(low="pink", high="red") +
+  theme_classic() +
+  theme(legend.position = "none",
+        axis.title.y = element_text(),
+        plot.margin = margin(t = 10, r = 5, b = 10, l = 0, unit = "pt")) +
+  labs(x = NULL, y = "KS 
+Individual 
+Impacts")
+p2 <- p2 + theme(
+  axis.title.y = element_text(margin = margin(t = 0, r = 62, b = 0, l = 0, unit = "pt"))
+)
+p2
+```
+
+```{r}
+KSD1$color_value <- KSD1$total / sum(KSD1$total)
+p3 <- ggplot(KSD1, aes(x = total, y = reorder(KDC, total), fill = color_value)) +
+  geom_bar(stat="identity", width = 0.7) +
+  scale_fill_gradient(low="lightblue", high="blue") +
+  theme_classic() +
+  theme(legend.position = "none") +
+  labs(x = NULL, y = "KS Defining Concepts")
+p3 <- p3 + theme(
+  axis.title.y = element_text(margin = margin(t = 0, r = 10, b = 0, l = 0, unit = "pt"))
+)
+p3
+```
+
+```{r}
+Age_transposed <- as.data.frame(t(Age))
+Age1 <- data.frame(age = row.names(Age_transposed), total = unlist(Age_transposed, use.names = FALSE))
+row.names(Age1) <- NULL
+```
+
+
+```{r}
+Age1$color_value <- Age1$total / sum(Age1$total)
+p4 <- ggplot(Age1, aes(x = total, y = reorder(age, total), fill = color_value)) +
+  geom_bar(stat="identity", width = 0.7) +
+  scale_fill_gradient(low="lightblue", high="blue") +
+  theme_classic() +
+  theme(legend.position = "none",
+        axis.title.y = element_text(),
+        plot.margin = margin(t = 10, r = 5, b = 10, l = 0, unit = "pt")) +
+  labs(x = NULL, y = "Age")
+p4 <- p4 + theme(
+  axis.title.y = element_text(margin = margin(t = 0, r = 127, b = 0, l = 0, unit = "pt"))
+)
+p4
+```
+
+
+```{r}
+p5 <- grid.arrange(p3, p2, p1, p4, ncol = 1, heights = c(2, 1, 1, 1))
+p5
+```
+
+
+
