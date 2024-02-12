@@ -1,0 +1,135 @@
+---
+title: "Heatmap"
+author: "Amie Thomas"
+date: "2024-02-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+#load in data
+KS_data <- read.csv("KS_lifespan.csv")
+
+#defining concepts subset data
+concepts <- KS_data[2:15, -6]
+
+#rename for ease
+concepts <- rename(concepts, Symptoms = `X`)
+concepts <- rename(concepts, `< 2` = `under.2.years.of.age..infancy...N.16.`,
+                   `2-4` = `X2.4.years.of.age...early.childhood...N.15.`,
+                   `5-11` = `X5.11.years.of.age..late.childhood...N.13.`,
+                   `12-17` = `X12.17.years.of.age..adolescence.and.teenage.years...N.6.`)
+
+#find sum of individual columns
+conc_csums <- colSums(concepts[ , -1])
+
+#divide cell values by column total for frequency
+#put frequency values in new columns
+concepts <- concepts |>
+  mutate(
+    `freq < 2` = `< 2` / conc_csums[1],
+    `freq 2-4` = `2-4` / conc_csums[2],
+    `freq 5-11` = `5-11` / conc_csums[3],
+    `freq 12-17` = `12-17` / conc_csums[4]
+  )
+
+#format for graphing
+concepts_2 <- select(concepts, -`< 2`, -`2-4`, -`5-11`, -`12-17`)
+concepts_2 <- pivot_longer(concepts_2, cols = c(`freq < 2`, `freq 2-4`, `freq 5-11`, `freq 12-17`), names_to = "age", values_to = "Frequencies")
+
+#heatmap
+ ggplot(concepts_2, aes(x=age, y=Symptoms, fill= Frequencies)) +
+   geom_tile(color = "black") +  
+   geom_tile(color = "white", fill = NA) +  
+   scale_fill_gradient(low="white", high="darkred") +  
+   theme_minimal() +  
+   theme(panel.grid = element_blank())  
+ 
+```
+
+```{r}
+#individual impacts subset data
+ind_impacts <- KS_data[18:21, -6]
+
+ind_impacts <- rename(ind_impacts, Impacts = `X`)
+ind_impacts <- rename(ind_impacts, `< 2` = `under.2.years.of.age..infancy...N.16.`,
+                   `2-4` = `X2.4.years.of.age...early.childhood...N.15.`,
+                   `5-11` = `X5.11.years.of.age..late.childhood...N.13.`,
+                   `12-17` = `X12.17.years.of.age..adolescence.and.teenage.years...N.6.`)
+
+
+#find sum of individual columns
+ind_csums <- colSums(ind_impacts[ ,-1])
+
+#divide cell values by column total for frequency
+#put frequency values in new columns
+ind_impacts <- ind_impacts |>
+  mutate(
+    `freq < 2` = `< 2` / ind_csums[1],
+    `freq 2-4` = `2-4` / ind_csums[2],
+    `freq 5-11` = `5-11` / ind_csums[3],
+    `freq 12-17` = `12-17` / ind_csums[4]
+  )
+
+#format for graphing
+ind_impacts_2 <- select(ind_impacts, -`< 2`, -`2-4`, -`5-11`, -`12-17`)
+ind_impacts_2 <- pivot_longer(ind_impacts_2, cols = c(`freq < 2`, `freq 2-4`, `freq 5-11`, `freq 12-17`), names_to = "age", values_to = "Frequencies")
+
+#heatmap
+ggplot(ind_impacts_2, aes(x=age, y=Impacts, fill= Frequencies)) +
+   geom_tile(color = "black") +  
+   geom_tile(color = "white", fill = NA) +  
+   scale_fill_gradient(low="white", high="darkgreen") +  
+   theme_minimal() +  
+   theme(panel.grid = element_blank()) 
+```
+
+```{r}
+#caregiver impacts subset data
+care_impacts <- KS_data[24:27, -6]
+
+care_impacts <- rename(care_impacts, Impacts = `X`)
+care_impacts <- rename(care_impacts, `< 2` = `under.2.years.of.age..infancy...N.16.`,
+                   `2-4` = `X2.4.years.of.age...early.childhood...N.15.`,
+                   `5-11` = `X5.11.years.of.age..late.childhood...N.13.`,
+                   `12-17` = `X12.17.years.of.age..adolescence.and.teenage.years...N.6.`)
+
+#find sum of individual columns
+care_csums <- colSums(care_impacts[ ,-1])
+
+#divide cell values by column total for frequency
+#put frequency values in new columns
+care_impacts <- care_impacts |>
+  mutate(
+    `freq < 2` = `< 2` / care_csums[1],
+    `freq 2-4` = `2-4` / care_csums[2],
+    `freq 5-11` = `5-11` / care_csums[3],
+    `freq 12-17` = `12-17` / care_csums[4]
+  )
+
+#format for graphing
+care_impacts_2 <- select(care_impacts, -`< 2`, -`2-4`, -`5-11`, -`12-17`)
+care_impacts_2 <- pivot_longer(care_impacts_2, cols = c(`freq < 2`, `freq 2-4`, `freq 5-11`, `freq 12-17`), names_to = "age", values_to = "Frequencies")
+
+#heatmap (looks a little childish. Want to look more sophisticated. Perhaps interactive)
+ggplot(care_impacts_2, aes(x=age, y=Impacts, fill= Frequencies)) +
+   geom_tile(color = "black") +  
+   geom_tile(color = "white", fill = NA) +  
+   scale_fill_gradient(low="white", high="darkblue") +  
+   theme_minimal() +  
+   theme(panel.grid = element_blank()) 
+
+
+#move x labels to top 
+#move scale to the bottom
+#figure out how to get it to show out of 1
+#figure out title and subtitle
+#put on one doc all together
+```
