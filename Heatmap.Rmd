@@ -10,7 +10,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
+install.packages("ggpubr")
+library(ggpubr)
 library(tidyverse)
+
 ```
 
 ```{r}
@@ -34,26 +37,39 @@ conc_csums <- colSums(concepts[ , -1])
 #put frequency values in new columns
 concepts <- concepts |>
   mutate(
-    `freq < 2` = `< 2` / conc_csums[1],
-    `freq 2-4` = `2-4` / conc_csums[2],
-    `freq 5-11` = `5-11` / conc_csums[3],
-    `freq 12-17` = `12-17` / conc_csums[4]
+    `Under 2` = `< 2` / conc_csums[1],
+    `2-4 Years` = `2-4` / conc_csums[2],
+    `5-11 Years` = `5-11` / conc_csums[3],
+    `12-17 Years` = `12-17` / conc_csums[4]
   )
 
 #format for graphing
 concepts_2 <- select(concepts, -`< 2`, -`2-4`, -`5-11`, -`12-17`)
-colnames(concepts_2) <- c("Symptoms", "1", "2", "3", "4")
-concepts_2 <- pivot_longer(concepts_2, cols = c(`1`, `2`, `3`, `4`), names_to = "age", values_to = "Frequencies")
+concepts_2 <- pivot_longer(concepts_2, cols = c(`Under 2`, `2-4 Years`, `5-11 Years`, `12-17 Years`), names_to = "age", values_to = "Frequencies")
 
+concepts_2$age <- factor(concepts_2$age, levels = c("Under 2", "2-4 Years", "5-11 Years", "12-17 Years"))
 
 #heatmap
- ggplot(concepts_2, aes(x=age, y=Symptoms, fill= Frequencies)) +
+heatmap_1 <- ggplot(concepts_2, aes(x=age, y=Symptoms, fill= Frequencies)) +
    geom_tile(color = "black") +  
    geom_tile(color = "white", fill = NA) +  
-   scale_fill_gradient(low="white", high="darkred", limits = c(0,1)) + 
-   scale_x_discrete(expand = c(0, 0),position = 'top', labels = c("Under 2", ) +
+   scale_fill_gradient(low="white", high="darkred") + 
+   labs(x = NULL, y = "Symptoms")+
+   scale_x_discrete(expand = c(0, 0), position = 'top', labels = c("Under 2", limits = c(0, 1))) +
    theme_minimal() +  
-   theme(panel.grid = element_blank())  
+   theme(panel.grid = element_blank())+
+   theme(
+    panel.grid = element_blank(),
+    axis.text.y = element_text(family = "Times New Roman", size = 10),
+    axis.text.x = element_text(family = "Times New Roman", size = 10),
+    plot.title = element_text(family = "Times New Roman", size = 10), 
+    legend.title = element_text(family = "Times New Roman", size = 10), 
+    legend.text = element_text(family = "Times New Roman", size = 10),
+    axis.title.y = element_text(family = "Times New Roman", size = 12),
+    plot.margin = margin(t = 0, r = 1, b = 0, l = 1, unit = "cm")
+  )
+
+heatmap_1
  
 ```
 
@@ -75,25 +91,40 @@ ind_csums <- colSums(ind_impacts[ ,-1])
 #put frequency values in new columns
 ind_impacts <- ind_impacts |>
   mutate(
-    `freq < 2` = `< 2` / ind_csums[1],
-    `freq 2-4` = `2-4` / ind_csums[2],
-    `freq 5-11` = `5-11` / ind_csums[3],
-    `freq 12-17` = `12-17` / ind_csums[4]
+    `Under 2` = `< 2` / ind_csums[1],
+    `2-4 Years` = `2-4` / ind_csums[2],
+    `5-11 Years` = `5-11` / ind_csums[3],
+    `12-17 Years` = `12-17` / ind_csums[4]
   )
 
 #format for graphing
 ind_impacts_2 <- select(ind_impacts, -`< 2`, -`2-4`, -`5-11`, -`12-17`)
-ind_impacts_2 <- pivot_longer(ind_impacts_2, cols = c(`freq < 2`, `freq 2-4`, `freq 5-11`, `freq 12-17`), names_to = "age", values_to = "Frequencies")
+ind_impacts_2 <- pivot_longer(ind_impacts_2, cols = c(`Under 2`, `2-4 Years`, `5-11 Years`, `12-17 Years`), names_to = "age", values_to = "Frequencies")
+
+ind_impacts_2$age <- factor(ind_impacts_2$age, levels = c("Under 2", "2-4 Years", "5-11 Years", "12-17 Years"))
+
 
 #heatmap
-ggplot(ind_impacts_2, aes(x=age, y=Impacts, fill= Frequencies)) +
+heatmap_2 <- ggplot(ind_impacts_2, aes(x=age, y=Impacts, fill= Frequencies)) +
    geom_tile(color = "black") +  
    geom_tile(color = "white", fill = NA) + 
-   scale_fill_gradient(low = "white", high = "darkgreen", limits = c(0, 1))+
+   scale_fill_gradient(low = "white", high = "darkgreen", limit = c(0,1))+
+   labs(x = NULL, y = "Impacts on the Individual")+
    scale_x_discrete(expand = c(0, 0),position = 'top') +
    theme_minimal() +  
-   theme(panel.grid = element_blank())
-   #scale_x_discrete()
+   theme(panel.grid = element_blank())+
+  theme(
+    panel.grid = element_blank(),
+    axis.text.y = element_text(family = "Times New Roman", size = 10),
+    axis.text.x = element_text(family = "Times New Roman", size = 10),
+    plot.title = element_text(family = "Times New Roman", size = 10), 
+    legend.title = element_text(family = "Times New Roman", size = 10), 
+    legend.text = element_text(family = "Times New Roman", size = 10),
+    axis.title.y = element_text(family = "Times New Roman", size = 12),
+    plot.margin = margin(t = 0, r = 1, b = 0, l = 1, unit = "cm")
+  )
+
+heatmap_2
 ```
 
 ```{r}
@@ -113,29 +144,39 @@ care_csums <- colSums(care_impacts[ ,-1])
 #put frequency values in new columns
 care_impacts <- care_impacts |>
   mutate(
-    `freq < 2` = `< 2` / care_csums[1],
-    `freq 2-4` = `2-4` / care_csums[2],
-    `freq 5-11` = `5-11` / care_csums[3],
-    `freq 12-17` = `12-17` / care_csums[4]
+    `Under 2` = `< 2` / care_csums[1],
+    `2-4 Years` = `2-4` / care_csums[2],
+    `5-11 Years` = `5-11` / care_csums[3],
+    `12-17 Years` = `12-17` / care_csums[4]
   )
 
 #format for graphing
 care_impacts_2 <- select(care_impacts, -`< 2`, -`2-4`, -`5-11`, -`12-17`)
-care_impacts_2 <- pivot_longer(care_impacts_2, cols = c(`freq < 2`, `freq 2-4`, `freq 5-11`, `freq 12-17`), names_to = "age", values_to = "Frequencies")
+care_impacts_2 <- pivot_longer(care_impacts_2, cols = c(`Under 2`, `2-4 Years`, `5-11 Years`, `12-17 Years`), names_to = "age", values_to = "Frequencies")
+
+care_impacts_2$age <- factor(care_impacts_2$age, levels = c("Under 2", "2-4 Years", "5-11 Years", "12-17 Years"))
+
 
 #heatmap (looks a little childish. Want to look more sophisticated. Perhaps interactive)
-ggplot(care_impacts_2, aes(x=age, y=Impacts, fill= Frequencies)) +
+heatmap_3 <- ggplot(care_impacts_2, aes(x=age, y=Impacts, fill= Frequencies)) +
    geom_tile(color = "black") +  
    geom_tile(color = "white", fill = NA) +  
    scale_fill_gradient(low="white", high="darkblue", limits = c(0,1)) + 
+   labs(x = NULL, y = "Impacts on the Caregiver")+
    scale_x_discrete(expand = c(0, 0),position = 'top') +
    theme_minimal() +  
-   theme(panel.grid = element_blank()) 
-
-
-#move x labels to top 
-#move scale to the bottom
-#figure out how to get it to show out of 1
-#figure out title and subtitle
-#put on one doc all together
+   theme(panel.grid = element_blank())+
+   theme(
+    panel.grid = element_blank(),
+    axis.text.y = element_text(family = "Times New Roman", size = 10),
+    axis.text.x = element_text(family = "Times New Roman", size = 10),
+    plot.title = element_text(family = "Times New Roman", size = 10), 
+    legend.title = element_text(family = "Times New Roman", size = 10), 
+    legend.text = element_text(family = "Times New Roman", size = 10),
+    axis.title.y = element_text(family = "Times New Roman", size = 12),
+    plot.margin = margin(t = 0, r = .1, b = 0, l = .1, unit = "cm")
+   )
+heatmap_3
+     
 ```
+
