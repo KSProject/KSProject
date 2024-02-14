@@ -1,0 +1,27 @@
+---
+title: "**Kleefstra Syndrome Disease Concept Model**"
+author:
+  - Teaching Fellow - Minh Thu Bui
+  - Supervisor - Professor Masanao Yajima
+  - Wuge Li, Maysen Pagan, Amie Thomas
+output: 
+  bookdown::pdf_document2:
+    toc: false
+    number_sections: true
+---
+
+# Project Background and Objectives
+
+# Visualizations
+
+## Total Frequencies Bar Plot
+
+### Analysis
+
+## Age Group Frequencies Heatmap
+
+### Analysis
+
+## Age Group Frequencies Bar Plot
+
+### Analysis
