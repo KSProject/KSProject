@@ -1,5 +1,5 @@
 ---
-title: "PieCharts"
+title: "Stacked Bar Plots"
 author: "Maysen Pagan"
 date: "2024-02-11"
 output: pdf_document
@@ -8,9 +8,10 @@ output: pdf_document
 ```{r}
 library(ggplot2)
 library(tidyverse)
+library(gridExtra)
 #load data
 lifespan <- read.csv("~/Desktop/Client Projects/Kristen Conners/KSProject/KS_lifespan.csv")
-
+lifespan$X <- str_replace(lifespan$X, " impact", "")
 #data set for references to symptoms
 symptoms <- lifespan[2:15,-6]
 colnames(symptoms) <- c("symptom", "1", "2", "3", "4")
@@ -28,33 +29,54 @@ care_impacts <- care_impacts %>% pivot_longer(names_to = "age", values_to = "val
 
 ```{r}
 #stacked barplots for KS Defining Concepts
-ggplot(symptoms, aes(fill=symptom, y=value, x=age)) + 
+plot1 <- ggplot(symptoms, aes(fill=symptom, y=value, x=age)) + 
   geom_bar(position="fill", stat="identity") +
   labs(x = "Age Group", y = "Proportion of References") + 
-  theme_linedraw() +
-  scale_fill_manual(name = "KS Defining Concepts",
+  theme_grey() +
+  scale_fill_manual(name = "A. KS Defining Concepts",
                     values = c("#cc6666", "#cc8a90", "#ccb966", "#e59366", "#2d9f48", "#8acc66", "#94e1a6", "#66bbe5", "#6b98e6", "#4052c9", "#7e40c9", "#a766cc", "#c94072", "#d15c5c"))+
-  scale_x_discrete(labels=c("<2","2-4","5-11", "12-17"))
+  scale_x_discrete(labels=c("<2","2-4","5-11", "12-17")) +
+  theme(axis.text.y = element_text(size = 13, family = "Times New Roman"),
+        axis.text.x = element_text(size = 11, family = "Times New Roman"), 
+        axis.title = element_text(size = 12, family = "Times New Roman"),
+        legend.text = element_text(size = 11, family = "Times New Roman"),
+        legend.title = element_text(size = 11, face = "bold", family = "Times New Roman"))
 ```
 
 ```{r}
 #stacked barplots for KS individual impacts
-ggplot(ind_impacts, aes(fill=impact, y=value, x=age)) + 
+plot2 <- ggplot(ind_impacts, aes(fill=impact, y=value, x=age)) + 
   geom_bar(position="fill", stat="identity") +
   labs(x = "Age Group", y = "Proportion of References") + 
-  theme_linedraw() +
-  scale_fill_manual(name = "KS Individual Impacts",
+  theme_grey() +
+  scale_fill_manual(name = "B. KS Individual Impacts",
                     values = c("#cc6666", "#ccb966","#2d9f48", "#6b98e6"))+
-  scale_x_discrete(labels=c("<2","2-4","5-11", "12-17"))
+  scale_x_discrete(labels=c("<2","2-4","5-11", "12-17")) +
+  theme(axis.text.y = element_text(size = 13, family = "Times New Roman"),
+        axis.text.x = element_text(size = 11, family = "Times New Roman"), 
+        axis.title = element_text(size = 12, family = "Times New Roman"),
+        legend.text = element_text(size = 11, family = "Times New Roman"),
+        legend.title = element_text(size = 11, face = "bold", family = "Times New Roman"))
 ```
 
 ```{r}
 #stacked barplots for KS caregiver impacts
-ggplot(care_impacts, aes(fill=impact, y=value, x=age)) + 
+plot3 <- ggplot(care_impacts, aes(fill=impact, y=value, x=age)) + 
   geom_bar(position="fill", stat="identity") +
   labs(x = "Age Group", y = "Proportion of References") + 
-  theme_linedraw() +
-  scale_fill_manual(name = "KS Caregiver Impacts",
+  theme_grey() +
+  scale_fill_manual(name = "C. KS Caregiver Impacts",
                     values = c("#cc6666", "#ccb966","#2d9f48", "#6b98e6"))+
-  scale_x_discrete(labels=c("<2","2-4","5-11", "12-17"))
+  scale_x_discrete(labels=c("<2","2-4","5-11", "12-17")) +
+  theme(axis.text.y = element_text(size = 13, family = "Times New Roman"),
+        axis.text.x = element_text(size = 11, family = "Times New Roman"), 
+        axis.title = element_text(size = 12, family = "Times New Roman"),
+        legend.text = element_text(size = 11, family = "Times New Roman"),
+        legend.title = element_text(size = 11, face = "bold", family = "Times New Roman"))
+```
+
+```{r, fig.width=12}
+grid.arrange(plot1, arrangeGrob(plot2, plot3), ncol = 2)
+
+
 ```
