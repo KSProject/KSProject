@@ -1,0 +1,60 @@
+---
+title: "PieCharts"
+author: "Maysen Pagan"
+date: "2024-02-11"
+output: pdf_document
+---
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+#load data
+lifespan <- read.csv("~/Desktop/Client Projects/Kristen Conners/KSProject/KS_lifespan.csv")
+
+#data set for references to symptoms
+symptoms <- lifespan[2:15,-6]
+colnames(symptoms) <- c("symptom", "1", "2", "3", "4")
+symptoms <- symptoms %>% pivot_longer(names_to = "age", values_to = "value", cols = 2:5)
+#data set for references to individual impacts
+ind_impacts <- lifespan[18:21,-6]
+colnames(ind_impacts) <- c("impact", "1", "2", "3", "4")
+ind_impacts <- ind_impacts %>% pivot_longer(names_to = "age", values_to = "value", cols = 2:5)
+#data set for references to caregiver impacts
+care_impacts <- lifespan[24:27,-6]
+colnames(care_impacts) <- c("impact", "1", "2", "3", "4")
+care_impacts <- care_impacts %>% pivot_longer(names_to = "age", values_to = "value", cols = 2:5)
+```
+
+
+```{r}
+#stacked barplots for KS Defining Concepts
+ggplot(symptoms, aes(fill=symptom, y=value, x=age)) + 
+  geom_bar(position="fill", stat="identity") +
+  labs(x = "Age Group", y = "Proportion of References") + 
+  theme_linedraw() +
+  scale_fill_manual(name = "KS Defining Concepts",
+                    values = c("#cc6666", "#cc8a90", "#ccb966", "#e59366", "#2d9f48", "#8acc66", "#94e1a6", "#66bbe5", "#6b98e6", "#4052c9", "#7e40c9", "#a766cc", "#c94072", "#d15c5c"))+
+  scale_x_discrete(labels=c("<2","2-4","5-11", "12-17"))
+```
+
+```{r}
+#stacked barplots for KS individual impacts
+ggplot(ind_impacts, aes(fill=impact, y=value, x=age)) + 
+  geom_bar(position="fill", stat="identity") +
+  labs(x = "Age Group", y = "Proportion of References") + 
+  theme_linedraw() +
+  scale_fill_manual(name = "KS Individual Impacts",
+                    values = c("#cc6666", "#ccb966","#2d9f48", "#6b98e6"))+
+  scale_x_discrete(labels=c("<2","2-4","5-11", "12-17"))
+```
+
+```{r}
+#stacked barplots for KS caregiver impacts
+ggplot(care_impacts, aes(fill=impact, y=value, x=age)) + 
+  geom_bar(position="fill", stat="identity") +
+  labs(x = "Age Group", y = "Proportion of References") + 
+  theme_linedraw() +
+  scale_fill_manual(name = "KS Caregiver Impacts",
+                    values = c("#cc6666", "#ccb966","#2d9f48", "#6b98e6"))+
+  scale_x_discrete(labels=c("<2","2-4","5-11", "12-17"))
+```
