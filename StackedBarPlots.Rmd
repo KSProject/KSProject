@@ -12,6 +12,7 @@ library(gridExtra)
 #load data
 lifespan <- read.csv("~/Desktop/Client Projects/Kristen Conners/KSProject/KS_lifespan.csv")
 lifespan$X <- str_replace(lifespan$X, " impact", "")
+lifespan$X <- str_replace(lifespan$X, "and", "&")
 #data set for references to symptoms
 symptoms <- lifespan[2:15,-6]
 colnames(symptoms) <- c("symptom", "1", "2", "3", "4")
