@@ -108,6 +108,4 @@ plot3
 
 ```{r, fig.width=12}
 grid.arrange(plot1, arrangeGrob(plot2, plot3), ncol = 2)
-
-
 ```

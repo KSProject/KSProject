@@ -21,9 +21,10 @@ output:
 
 ## Age Group Symptoms Frequencies Heatmap
 ```{r, echo=FALSE}
+suppressPackageStartupMessages(library(ggplot2))
 library(ggpubr)
-library(tidyverse)
-library(gridExtra)
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(gridExtra))
 
 #load in data
 KS_data <- read.csv("KS_lifespan.csv")
@@ -72,15 +73,9 @@ heatmap_1 <- ggplot(concepts_2, aes(x=age, y=Symptoms, fill= Frequencies)) +
    theme(panel.grid = element_blank())+
    theme(
     panel.grid = element_blank(),
-    axis.text.y = element_text(family = "Times New Roman", size = 20),
-    axis.text.x = element_text(family = "Times New Roman", size = 16),
-    plot.title = element_text(family = "Times New Roman", size = 10), 
-    legend.title = element_text(family = "Times New Roman", size = 14), 
-    legend.text = element_text(family = "Times New Roman", size = 14),
-    axis.title.y = element_text(family = "Times New Roman", face = "bold", size = 22)
+    axis.title.y = element_text(face = "bold")
   )
 
-heatmap_1
 
 #individual impacts subset data
 ind_impacts <- KS_data[18:21, -6]
@@ -125,16 +120,10 @@ heatmap_2 <- ggplot(ind_impacts_2, aes(x=age, y=Impacts, fill= Frequencies)) +
    theme(panel.grid = element_blank())+
   theme(
     panel.grid = element_blank(),
-    axis.text.y = element_text(family = "Times New Roman", size = 20),
-    axis.text.x = element_text(family = "Times New Roman", size = 18),
-    plot.title = element_text(family = "Times New Roman", size = 10), 
-    legend.title = element_text(family = "Times New Roman", size = 14), 
-    legend.text = element_text(family = "Times New Roman", size = 14),
-    axis.title.y = element_text(family = "Times New Roman", face = "bold", size = 22),
+    axis.title.y = element_text(face = "bold"),
     plot.margin = margin(t = 0, r = .1, b = 0, l = .1, unit = "cm")
   )
 
-heatmap_2
 
 #caregiver impacts subset data
 care_impacts <- KS_data[24:27, -6]
@@ -177,25 +166,17 @@ heatmap_3 <- ggplot(care_impacts_2, aes(x=age, y=Impacts, fill= Frequencies)) +
    theme(panel.grid = element_blank())+
    theme(
     panel.grid = element_blank(),
-    axis.text.y = element_text(family = "Times New Roman", size = 20),
-    axis.text.x = element_text(family = "Times New Roman", size = 18),
-    plot.title = element_text(family = "Times New Roman", size = 10), 
-    legend.title = element_text(family = "Times New Roman", size = 14), 
-    legend.text = element_text(family = "Times New Roman", size = 14),
-    axis.title.y = element_text(family = "Times New Roman", face = "bold", size = 22),
+    axis.title.y = element_text(face = "bold"),
     plot.margin = margin(t = 0, r = .1, b = 0, l = .1, unit = "cm")
    )
-heatmap_3
      
 ```
 
-```{r, fig.width=20}
+```{r, fig.width=12, fig.height = 8, echo = FALSE}
 #plots in same place
 grid.arrange(heatmap_1, arrangeGrob(heatmap_2, heatmap_3), ncol=2)
 ```
 
-
-#test
 
 ### Analysis
 
@@ -206,9 +187,6 @@ grid.arrange(heatmap_1, arrangeGrob(heatmap_2, heatmap_3), ncol=2)
 Another visualization that allows you to observe changes in the frequencies of references over different age groups is a stacked bar plot. Figure \@ref(fig:stacked-plot) shows stacked bar plots for the frequencies of referenced KS Defining Concepts, KS Individual Concepts, and KS Caregiver Impacts. The different colors in each plot represent different concepts or impacts and the labeled frequencies represent the most referenced concept or impact for that age group.
 
 ```{r, echo = FALSE}
-suppressPackageStartupMessages(library(ggplot2))
-suppressPackageStartupMessages(library(tidyverse))
-suppressPackageStartupMessages(library(gridExtra))
 #load data
 lifespan <- read.csv("~/Desktop/Client Projects/Kristen Conners/KSProject/KS_lifespan.csv")
 lifespan$X <- str_replace(lifespan$X, " impact", "")
@@ -295,10 +273,8 @@ grid.arrange(plot1, arrangeGrob(plot2, plot3), ncol = 2)
 
 ### Analysis
 
-<<<<<<< HEAD
-### Conclusion
-=======
 These stacked bar plots are a great way to observe changes in the frequency of references across different age groups at a high level. For example, in stacked bar plot B, it is clear to see that health is the most referenced individual impact for children under the age of 2. However, as the age groups increase, the references to health decreases. This suggests that the significance of the child's health decreases as the child gets older when other impacts like social and daily living impacts begin to matter more. A similar pattern can be seen in bar plot C. As the age groups increase in age, the frequencies of references to emotional caregiver impacts decreases while social impacts increase.
 
 There is a challenge with the interpretability of stacked bar plots. While the patterns mentioned above are clear to see looking at the plots, there is a difficulty in comparing concepts or impacts when they do not start at a common baseline. For example in bar plot A, it is hard to compare the references to gastrointestinal concepts between the age groups of less than 2 and 2 to 4 year olds. Additionally, due to the stacked nature of the bar plots, it is also difficult to determine what the exact frequency is of the referenced concept or impact unless it is the bottom bar.
->>>>>>> 5818c4e8c4275f0d9a0d59231b3426ad2f4678df
+
+### Conclusion
