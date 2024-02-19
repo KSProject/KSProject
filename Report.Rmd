@@ -12,6 +12,7 @@ output:
 ---
 
 # Project Background and Objectives
+The objective of this project is to create an interpretable visualization of the results produced by Kristen Conners research on Kleefstra Syndrome. The visualization should show which symptoms and impacts were discussed the most during interviews with the healthcare providers and caregivers of children with the condition. The results should indicate which symptoms/impacts are the most important for the specified age groups. It should give insight in to how Kleefstra Syndrome impacts the lives of caregivers and those afflicted by the condition.
 
 # Visualizations
 
@@ -20,7 +21,8 @@ output:
 ### Analysis
 
 ## Age Group Symptoms Frequencies Heatmap
-```{r, echo=FALSE}
+
+```{r, echo = FALSE}
 suppressPackageStartupMessages(library(ggplot2))
 library(ggpubr)
 suppressPackageStartupMessages(library(tidyverse))
@@ -177,9 +179,13 @@ heatmap_3 <- ggplot(care_impacts_2, aes(x=age, y=Impacts, fill= Frequencies)) +
 grid.arrange(heatmap_1, arrangeGrob(heatmap_2, heatmap_3), ncol=2)
 ```
 
-
 ### Analysis
 
+Heatmaps are a great way to reveal relationships between variables. By representing numerical values with colors, heatmaps make it easier to identify areas of high and low values. For figure (whatever figure number this is) the frequency of each symptom was calculated by finding the sum of all symptoms mentioned per age group then dividing by the number that the specific symptom was mentioned. This normalizes the data so that the different response sizes are no longer an issue, making the age groups comparable. 
+
+Interpreting the graph can be done like the following. For the "Impacts on Caregiver" heatmap (bottom right graph) we can see that the emotional impacts were mentioned at a higher frequency than all other impacts for the Under 2 category. Emotional impact continues to be the most talked about for ages 2-4 and 5-11. Then comes second place to social impacts for age category 12-17.
+
+The "Symptoms" heatmap is an a scale from 0.00-0.25, whereas the "Impacts on Caregiver" and "Impacts on Individual" are on a 0.00-1.00 scale. The reasoning is that the symptom most mentioned in interviews had a frequency of 0.24. Putting the heatmap on a 0.00-1.00 scale made it less visually effective for comparison purposes. 
 
 
 ## Age Group Frequencies Bar Plot
