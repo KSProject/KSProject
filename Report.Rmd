@@ -19,9 +19,14 @@ output:
 ### Analysis
 
 ## Age Group Frequencies Heatmap
+```{r}
 
+
+```
 ### Analysis
 
 ## Age Group Frequencies Bar Plot
 
 ### Analysis
+
+### Conclusion
