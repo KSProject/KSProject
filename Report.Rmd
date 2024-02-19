@@ -12,7 +12,7 @@ output:
 ---
 
 # Project Background and Objectives
-The objective of this project is to create an interpretable visualization of the results produced by Kristen Conners research on Kleefstra Syndrome. The visualization should show which symptoms and impacts were discussed the most during interviews with the healthcare providers and caregivers of children with the condition. The results should indicate which symptoms/impacts are the most important for the specified age groups. It should give insight in to how Kleefstra Syndrome impacts the lives of caregivers and those afflicted by the condition.
+The objective of this project is to create an interpretable visualization of the results produced by Kristen Connors' Disease Concept Model on Kleefstra Syndrome. The visualization should show which symptoms and impacts were discussed the most during interviews with the healthcare providers and caregivers of children with the condition. The results should indicate which symptoms/impacts are the most significant for the specified age groups in the eyes of the caregiver. It should give insight in to how Kleefstra Syndrome impacts the lives of caregivers and those afflicted by the condition.
 
 # Visualizations
 
@@ -21,6 +21,8 @@ The objective of this project is to create an interpretable visualization of the
 ### Analysis
 
 ## Age Group Symptoms Frequencies Heatmap
+
+Heatmaps are a great way to reveal relationships between variables. By representing numerical values with colors, heatmaps make it easier to identify areas of high and low values. For Figure \@ref(fig:freq-plot) the frequency of each symptom was calculated by finding the sum of all symptoms mentioned per age group then dividing by the number that the specific symptom was mentioned. This normalizes the data so that the different response sizes are no longer an issue, making the age groups comparable. 
 
 ```{r, echo = FALSE}
 suppressPackageStartupMessages(library(ggplot2))
@@ -75,7 +77,8 @@ heatmap_1 <- ggplot(concepts_2, aes(x=age, y=Symptoms, fill= Frequencies)) +
    theme(panel.grid = element_blank())+
    theme(
     panel.grid = element_blank(),
-    axis.title.y = element_text(face = "bold")
+    axis.text.y = element_text(size = 11),
+    axis.title.y = element_text(face = "bold", size = 13)
   )
 
 
@@ -122,7 +125,8 @@ heatmap_2 <- ggplot(ind_impacts_2, aes(x=age, y=Impacts, fill= Frequencies)) +
    theme(panel.grid = element_blank())+
   theme(
     panel.grid = element_blank(),
-    axis.title.y = element_text(face = "bold"),
+    axis.title.y = element_text(face = "bold", size = 13),
+    axis.text.y = element_text(size = 12),
     plot.margin = margin(t = 0, r = .1, b = 0, l = .1, unit = "cm")
   )
 
@@ -168,20 +172,19 @@ heatmap_3 <- ggplot(care_impacts_2, aes(x=age, y=Impacts, fill= Frequencies)) +
    theme(panel.grid = element_blank())+
    theme(
     panel.grid = element_blank(),
-    axis.title.y = element_text(face = "bold"),
+    axis.title.y = element_text(face = "bold", size = 13),
+    axis.text.y = element_text(size = 12),
     plot.margin = margin(t = 0, r = .1, b = 0, l = .1, unit = "cm")
    )
      
 ```
 
-```{r, fig.width=12, fig.height = 8, echo = FALSE}
+```{r freq-plot, fig.width=13, fig.height = 7, echo = FALSE, fig.cap = "Heatmap of references frequencies."}
 #plots in same place
 grid.arrange(heatmap_1, arrangeGrob(heatmap_2, heatmap_3), ncol=2)
 ```
 
 ### Analysis
-
-Heatmaps are a great way to reveal relationships between variables. By representing numerical values with colors, heatmaps make it easier to identify areas of high and low values. For figure (whatever figure number this is) the frequency of each symptom was calculated by finding the sum of all symptoms mentioned per age group then dividing by the number that the specific symptom was mentioned. This normalizes the data so that the different response sizes are no longer an issue, making the age groups comparable. 
 
 Interpreting the graph can be done like the following. For the "Impacts on Caregiver" heatmap (bottom right graph) we can see that the emotional impacts were mentioned at a higher frequency than all other impacts for the Under 2 category. Emotional impact continues to be the most talked about for ages 2-4 and 5-11. Then comes second place to social impacts for age category 12-17.
 
@@ -272,7 +275,7 @@ plot3 <- ggplot(care_impacts, aes(fill=impact, y=value, x=age)) +
   annotate("text", x = 4, y = 0.2, label = 0.4028)
 ```
 
-```{r stacked-plot, fig.width=12, fig.height = 7, echo = FALSE, fig.cap = "Labeled frequencies represent the most frequent concept or impact for that age group."}
+```{r stacked-plot, fig.width=12, fig.height = 7, echo = FALSE, fig.cap = "Stacked bar plot of references frequencies. Labeled frequencies represent the most frequent concept or impact for that age group."}
 grid.arrange(plot1, arrangeGrob(plot2, plot3), ncol = 2)
 ```
 
