@@ -27,7 +27,7 @@ Heatmaps are a great way to reveal relationships between variables. By represent
 Interpreting the graph can be done like the following. For the "Impacts on Caregiver" heatmap (bottom right graph) we can see that the emotional impacts were mentioned at a higher frequency than all other impacts for the Under 2 category. Emotional impact continues to be the most talked about for ages 2-4 and 5-11. Then comes second place to social impacts for age category 12-17.
 
 The "Symptoms" heatmap is an a scale from 0.00-0.25, whereas the "Impacts on Caregiver" and "Impacts on Individual" are on a 0.00-1.00 scale. The reasoning is that the symptom most mentioned in interviews had a frequency of 0.24. Putting the heatmap on a 0.00-1.00 scale made it less visually effective for comparison purposes. 
-```{r, echo=FALSE}
+```{r, echo = FALSE}
 library(ggpubr)
 library(tidyverse)
 library(gridExtra)
