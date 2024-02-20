@@ -1,0 +1,111 @@
+---
+title: "Stacked Bar Plots"
+author: "Maysen Pagan"
+date: "2024-02-11"
+output: pdf_document
+---
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(gridExtra)
+#load data
+lifespan <- read.csv("~/Desktop/Client Projects/Kristen Conners/KSProject/KS_lifespan.csv")
+lifespan$X <- str_replace(lifespan$X, " impact", "")
+lifespan$X <- str_replace(lifespan$X, "and", "&")
+#data set for references to symptoms
+symptoms <- lifespan[2:15,-6]
+colnames(symptoms) <- c("symptom", "1", "2", "3", "4")
+symptoms <- symptoms %>% pivot_longer(names_to = "age", values_to = "value", cols = 2:5)
+#data set for references to individual impacts
+ind_impacts <- lifespan[18:21,-6]
+colnames(ind_impacts) <- c("impact", "1", "2", "3", "4")
+ind_impacts <- ind_impacts %>% pivot_longer(names_to = "age", values_to = "value", cols = 2:5)
+#data set for references to caregiver impacts
+care_impacts <- lifespan[24:27,-6]
+colnames(care_impacts) <- c("impact", "1", "2", "3", "4")
+care_impacts <- care_impacts %>% pivot_longer(names_to = "age", values_to = "value", cols = 2:5)
+```
+
+
+```{r}
+#frequencies
+symptoms_freq <- symptoms %>% group_by(age) %>% 
+  mutate(sum = sum(value), freq = value/sum)
+
+#stacked barplots for KS Defining Concepts
+plot1 <- ggplot(symptoms, aes(fill=symptom, y=value, x=age)) + 
+  geom_bar(position="fill", stat="identity") +
+  labs(x = "Age Group", y = "Proportion of References") + 
+  theme_grey() +
+  scale_fill_manual(name = "A. KS Defining Concepts",
+                    values = c("#cc6666", "#cc8a90", "#ccb966", "#e59366", "#2d9f48", "#8acc66", "#94e1a6", "#66bbe5", "#6b98e6", "#4052c9", "#7e40c9", "#a766cc", "#c94072", "#d15c5c"))+
+  scale_x_discrete(labels=c("<2","2-4","5-11", "12-17")) +
+  theme(axis.text.y = element_text(size = 13, family = "Times New Roman"),
+        axis.text.x = element_text(size = 11, family = "Times New Roman"), 
+        axis.title = element_text(size = 12, family = "Times New Roman"),
+        legend.text = element_text(size = 11, family = "Times New Roman"),
+        legend.title = element_text(size = 11, face = "bold", family = "Times New Roman")) +
+  annotate("text", x = 1, y = 0.43, label = 0.1786) +
+  annotate("text", x = 2, y = 0.26, label = 0.2393) +
+  annotate("text", x = 3, y = 0.65, label = 0.2034) +
+  annotate("text", x = 4, y = 0.90, label = 0.1749)
+
+plot1
+```
+
+```{r}
+#frequencies
+ind_freq <- ind_impacts %>% group_by(age) %>% 
+  mutate(sum = sum(value), freq = value/sum)
+
+#stacked barplots for KS individual impacts
+plot2 <- ggplot(ind_impacts, aes(fill=impact, y=value, x=age)) + 
+  geom_bar(position="fill", stat="identity") +
+  labs(x = "Age Group", y = "Proportion of References") + 
+  theme_grey() +
+  scale_fill_manual(name = "B. KS Individual Impacts",
+                    values = c("#cc6666", "#ccb966","#2d9f48", "#6b98e6"))+
+  scale_x_discrete(labels=c("<2","2-4","5-11", "12-17")) +
+  theme(axis.text.y = element_text(size = 13, family = "Times New Roman"),
+        axis.text.x = element_text(size = 11, family = "Times New Roman"), 
+        axis.title = element_text(size = 12, family = "Times New Roman"),
+        legend.text = element_text(size = 11, family = "Times New Roman"),
+        legend.title = element_text(size = 11, face = "bold", family = "Times New Roman")) +
+  annotate("text", x = 1, y = 0.5, label = 0.9355) +
+  annotate("text", x = 2, y = 0.5, label = 0.65) +
+  annotate("text", x = 3, y = 0.5, label = 0.4957) +
+  annotate("text", x = 4, y = 0.5, label = 0.3626)
+
+plot2
+```
+
+```{r}
+#frequencies
+care_freq <- care_impacts %>% group_by(age) %>% 
+  mutate(sum = sum(value), freq = value/sum)
+
+#stacked barplots for KS caregiver impacts
+plot3 <- ggplot(care_impacts, aes(fill=impact, y=value, x=age)) + 
+  geom_bar(position="fill", stat="identity") +
+  labs(x = "Age Group", y = "Proportion of References") + 
+  theme_grey() +
+  scale_fill_manual(name = "C. KS Caregiver Impacts",
+                    values = c("#cc6666", "#ccb966","#2d9f48", "#6b98e6"))+
+  scale_x_discrete(labels=c("<2","2-4","5-11", "12-17")) +
+  theme(axis.text.y = element_text(size = 13, family = "Times New Roman"),
+        axis.text.x = element_text(size = 11, family = "Times New Roman"), 
+        axis.title = element_text(size = 12, family = "Times New Roman"),
+        legend.text = element_text(size = 11, family = "Times New Roman"),
+        legend.title = element_text(size = 11, face = "bold", family = "Times New Roman")) +
+  annotate("text", x = 1, y = 0.75, label = 0.6667) +
+  annotate("text", x = 2, y = 0.75, label = 0.5366) +
+  annotate("text", x = 3, y = 0.75, label = 0.4875) +
+  annotate("text", x = 4, y = 0.2, label = 0.4028)
+
+plot3
+```
+
+```{r, fig.width=12}
+grid.arrange(plot1, arrangeGrob(plot2, plot3), ncol = 2)
+```
