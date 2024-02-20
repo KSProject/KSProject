@@ -18,7 +18,7 @@ The objective of this project is to create an interpretable visualization of the
 
 ## Total Frequencies Bar Plot
 
-The most effective method for displaying the total number of references is by using a bar chart. This visual representation includes four distinct categories: "KS Defining Concepts," "KS Individual Impact," "Caregiver Impact," and "Age." and each depicted with varying colors to differentiate between them. Additionally, the data is organized in descending order to enable a clearer comparison of the references in each different categories.
+The most effective method for displaying the total number of references is by using a bar chart. This visual representation includes four distinct categories: "KS Defining Concepts", "KS Individual Impact", "Caregiver Impact", and "Age". Each depicted with varying colors to differentiate between them. Additionally, the data is organized in descending order to enable a clearer comparison of the references in each different categories.
 
 ```{r include=FALSE}
 library(readxl)
@@ -116,7 +116,7 @@ p4 <- p4 +
 p5 <- grid.arrange(p3, p2, p1, p4, ncol = 1, heights = c(2, 1, 1, 1))
 ```
 
-```{r freq-plot, fig.width=10, fig.height = 12, echo = FALSE, fig.cap = "Total references bar chart."}
+```{r bar-plot, fig.width=10, fig.height = 12, echo = FALSE, fig.cap = "Total references bar chart."}
 grid.arrange(p5)
 ```
 
@@ -300,7 +300,7 @@ Another visualization that allows you to observe changes in the frequencies of r
 
 ```{r, echo = FALSE}
 #load data
-lifespan <- read.csv("~/Desktop/Client Projects/Kristen Conners/KSProject/KS_lifespan.csv")
+lifespan <- read.csv("KS_lifespan.csv")
 lifespan$X <- str_replace(lifespan$X, " impact", "")
 lifespan$X <- str_replace(lifespan$X, "and", "&")
 #data set for references to symptoms
