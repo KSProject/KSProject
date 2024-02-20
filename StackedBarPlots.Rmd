@@ -29,6 +29,10 @@ care_impacts <- care_impacts %>% pivot_longer(names_to = "age", values_to = "val
 
 
 ```{r}
+#frequencies
+symptoms_freq <- symptoms %>% group_by(age) %>% 
+  mutate(sum = sum(value), freq = value/sum)
+
 #stacked barplots for KS Defining Concepts
 plot1 <- ggplot(symptoms, aes(fill=symptom, y=value, x=age)) + 
   geom_bar(position="fill", stat="identity") +
@@ -41,10 +45,20 @@ plot1 <- ggplot(symptoms, aes(fill=symptom, y=value, x=age)) +
         axis.text.x = element_text(size = 11, family = "Times New Roman"), 
         axis.title = element_text(size = 12, family = "Times New Roman"),
         legend.text = element_text(size = 11, family = "Times New Roman"),
-        legend.title = element_text(size = 11, face = "bold", family = "Times New Roman"))
+        legend.title = element_text(size = 11, face = "bold", family = "Times New Roman")) +
+  annotate("text", x = 1, y = 0.43, label = 0.1786) +
+  annotate("text", x = 2, y = 0.26, label = 0.2393) +
+  annotate("text", x = 3, y = 0.65, label = 0.2034) +
+  annotate("text", x = 4, y = 0.90, label = 0.1749)
+
+plot1
 ```
 
 ```{r}
+#frequencies
+ind_freq <- ind_impacts %>% group_by(age) %>% 
+  mutate(sum = sum(value), freq = value/sum)
+
 #stacked barplots for KS individual impacts
 plot2 <- ggplot(ind_impacts, aes(fill=impact, y=value, x=age)) + 
   geom_bar(position="fill", stat="identity") +
@@ -57,10 +71,20 @@ plot2 <- ggplot(ind_impacts, aes(fill=impact, y=value, x=age)) +
         axis.text.x = element_text(size = 11, family = "Times New Roman"), 
         axis.title = element_text(size = 12, family = "Times New Roman"),
         legend.text = element_text(size = 11, family = "Times New Roman"),
-        legend.title = element_text(size = 11, face = "bold", family = "Times New Roman"))
+        legend.title = element_text(size = 11, face = "bold", family = "Times New Roman")) +
+  annotate("text", x = 1, y = 0.5, label = 0.9355) +
+  annotate("text", x = 2, y = 0.5, label = 0.65) +
+  annotate("text", x = 3, y = 0.5, label = 0.4957) +
+  annotate("text", x = 4, y = 0.5, label = 0.3626)
+
+plot2
 ```
 
 ```{r}
+#frequencies
+care_freq <- care_impacts %>% group_by(age) %>% 
+  mutate(sum = sum(value), freq = value/sum)
+
 #stacked barplots for KS caregiver impacts
 plot3 <- ggplot(care_impacts, aes(fill=impact, y=value, x=age)) + 
   geom_bar(position="fill", stat="identity") +
@@ -73,11 +97,15 @@ plot3 <- ggplot(care_impacts, aes(fill=impact, y=value, x=age)) +
         axis.text.x = element_text(size = 11, family = "Times New Roman"), 
         axis.title = element_text(size = 12, family = "Times New Roman"),
         legend.text = element_text(size = 11, family = "Times New Roman"),
-        legend.title = element_text(size = 11, face = "bold", family = "Times New Roman"))
+        legend.title = element_text(size = 11, face = "bold", family = "Times New Roman")) +
+  annotate("text", x = 1, y = 0.75, label = 0.6667) +
+  annotate("text", x = 2, y = 0.75, label = 0.5366) +
+  annotate("text", x = 3, y = 0.75, label = 0.4875) +
+  annotate("text", x = 4, y = 0.2, label = 0.4028)
+
+plot3
 ```
 
 ```{r, fig.width=12}
 grid.arrange(plot1, arrangeGrob(plot2, plot3), ncol = 2)
-
-
 ```

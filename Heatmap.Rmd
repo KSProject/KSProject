@@ -168,7 +168,7 @@ care_impacts_2$age <- factor(care_impacts_2$age, levels = c("Under 2", "2-4 Year
 heatmap_3 <- ggplot(care_impacts_2, aes(x=age, y=Impacts, fill= Frequencies)) +
    geom_tile(color = "black") +  
    geom_tile(color = "white", fill = NA) +  
-   geom_text(aes(label = sprintf("%.2f", Frequencies)), color = "black", size = 5) +  
+   geom_text(aes(label = sprintf("%.2f", Frequencies)), color = "black", size = 5) +  #add numbers on heatmap
    scale_fill_gradient(low="white", high="darkblue", limits = c(0,1)) + 
    labs(x = NULL, y = "Impacts on the Caregiver")+
    scale_x_discrete(expand = c(0, 0),position = 'top') +
@@ -190,7 +190,7 @@ heatmap_3
 
 
 ```{r, fig.width=20}
+#plots in same place
 grid.arrange(heatmap_1, arrangeGrob(heatmap_2, heatmap_3), ncol=2)
-
 
 ```
