@@ -8,7 +8,8 @@ output:
   bookdown::pdf_document2:
     toc: false
     number_sections: true
-    
+    linkcolor: red
+urlcolor: red
 ---
 
 # Project Background and Objectives
@@ -18,7 +19,7 @@ The objective of this project is to create an interpretable visualization of the
 
 ## Total Frequencies Bar Plot
 
-The most effective method for displaying the total number of references is by using a bar chart. This visual representation includes four distinct categories: "KS Defining Concepts", "KS Individual Impact", "Caregiver Impact", and "Age". Each depicted with varying colors to differentiate between them. Additionally, the data is organized in descending order to enable a clearer comparison of the references in each different categories.
+The most effective method for displaying the total number of references for every concept or impact is by using a bar chart. This visual representation includes four distinct categories: "KS Defining Concepts", "KS Individual Impact", "Caregiver Impact", and "Age", each depicted with varying colors to differentiate between them. Additionally, the data is organized in descending order to enable a clearer comparison of the references in each different categories.
 
 ```{r include=FALSE}
 library(readxl)
@@ -116,12 +117,13 @@ p4 <- p4 +
 p5 <- grid.arrange(p3, p2, p1, p4, ncol = 1, heights = c(2, 1, 1, 1))
 ```
 
-```{r bar-plot, fig.width=10, fig.height = 12, echo = FALSE, fig.cap = "Total references bar chart."}
+```{r bar-plot, fig.width=9, fig.height = 11, echo = FALSE, fig.cap = "Total references bar chart."}
 grid.arrange(p5)
 ```
 
-
 ### Analysis
+
+From Figure \@ref(fig:bar-plot), we are able to make some simple observations. The most referenced KS Defining Concept across all age groups was Communication. The most referenced KS Individual Impact was health compared to emotional being the most referenced caregiver impact across all age groups. The Age bar plot allows to observe that in their interviews, caregivers most often referenced their children between the ages of 5 and 11.
 
 ## Age Group Symptoms Frequencies Heatmap
 
@@ -389,4 +391,6 @@ These stacked bar plots are a great way to observe changes in the frequency of r
 
 There is a challenge with the interpretability of stacked bar plots. While the patterns mentioned above are clear to see looking at the plots, there is a difficulty in comparing concepts or impacts when they do not start at a common baseline. For example in bar plot A, it is hard to compare the references to gastrointestinal concepts between the age groups of less than 2 and 2 to 4 year olds. Additionally, due to the stacked nature of the bar plots, it is also difficult to determine what the exact frequency is of the referenced concept or impact unless it is the bottom bar.
 
-### Conclusion
+# Conclusion
+
+The horizontal bar plot is a great visualization to observe patterns in the overall count of references to certain concepts, impacts, and age groups. The heatmap and stacked bar plot both are visualizations that allow one to compare the frequencies of references to concepts and impacts across different age groups. Line graphs or area graphs would not be representative of the data as the x-axis for line graphs and area graphs are continuous. The x-axis for the data provided is categorical as the ages of the children are divided into groups. As a result, a heatmap or stacked bar plot is the categorical alternative to area graphs. It is important to note that the cells of the heatmap provide the exact frequencies of each reference, a characteristic that the stacked barplot does not have.
