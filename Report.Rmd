@@ -138,7 +138,7 @@ grid.arrange(p5)
 
 ## Age Group Symptoms Frequencies Heatmap {#obj2a}
 
-Heatmaps are a great way to reveal relationships between variables. By representing numerical values with colors, heatmaps make it easier to identify areas of high and low values. For Figure \@ref(fig:freq-plot), the frequency of each symptom was calculated by finding the sum of all symptoms mentioned per age group then dividing by the number that the specific symptom was mentioned. This normalizes the data so that the different response sizes are no longer an issue, making the age groups comparable. \
+Heatmaps are a great way to reveal relationships between variables. By representing numerical values with colors, heatmaps make it easier to identify areas of high and low values. For Figure \@ref(fig:freq-plot), the frequency of each symptom/impact was calculated by dividing the number of references to each symptom/impact by the total number of references for that age group.For example, Frequency of Symptom A = Number of references to Symptom A / Total number of references to all symptoms in Age Group X. This normalizes the data so that the different response sizes are no longer an issue, making the age groups comparable. \
 
 ```{r, echo = FALSE}
 suppressPackageStartupMessages(library(ggplot2))
