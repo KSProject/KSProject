@@ -1,9 +1,10 @@
 ---
 title: "**Kleefstra Syndrome Disease Concept Model**"
 subtitle: |
+  | Team Members - Wuge Li, Maysen Pagan, Amie Thomas
   | Teaching Fellow - Minh Thu Bui  
   | Supervisor - Professor Masanao Yajima  
-  | Team Members - Wuge Li, Maysen Pagan, Amie Thomas
+  
 output: 
   bookdown::pdf_document2:
     toc: false
@@ -129,6 +130,9 @@ p5 <- grid.arrange(p3, p2, p1, p4, ncol = 1, heights = c(2, 1, 1, 1))
 grid.arrange(p5)
 ```
 
+\
+\
+\
 \
 \
 \
