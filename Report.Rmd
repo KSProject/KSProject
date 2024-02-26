@@ -14,20 +14,19 @@ urlcolor: blue
 
 # Project Background and Objectives
 
-The objective of this project is to create visualizations of references to concepts and impacts mentioned by caregivers of individuals with Kleefstra Syndrome (KS). In the conducted survey interviews, caregivers referenced the ages of individuals with KS ranging from under 2 years old to 17 years old. References were counted for mentions of KS defining concepts like motor or neurological concepts, KS individual impacts like social or health impacts, as well as caregiver impacts like financial or emotional impacts. The visualizations aim to help inform the impacts of KS on the lived experience of the individuals and their caregivers which can help medical health professionals prioritize intervention strategies and certain concepts at different ages.
+This project aims to create visualizations of references to concepts and impacts mentioned by caregivers of individuals with Kleefstra Syndrome (KS). In the survey interviews, caregivers referenced the ages of individuals with KS ranging from under two to 17 years old. References were counted for mentions of KS-defining concepts like motor or neurological concepts, KS individual impacts like social or health impacts, and caregiver impacts like financial or emotional impacts. The visualizations aim to help inform the effects of KS on the lived experience of the individuals and their caregivers, which can help medical health professionals prioritize intervention strategies and certain concepts at different ages.
 
-The first objective, found in Section \@ref(obj1), was to create a plot similar to Figure 1 in the following [paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10235567/) that portrays the total references to concepts, impacts, and ages in a horizontal bar plot. The second objective was to create a plot that displays the frequencies of references to compare the most mentioned concepts and impacts across different age groups. Two proposed plots for this objective can be found in Section \@ref(obj2a) and Section \@ref(obj2b).
+The first objective in Section \@ref(obj1) was to create a plot similar to Figure 1 in the following [paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10235567/) that portrays the total references to concepts, impacts, and ages in a horizontal bar plot. The second objective was to create a plot displaying the frequency of references to compare the most mentioned concepts and impacts across different age groups. Two proposed plots for this objective can be found in Section \@ref(obj2a) and Section \@ref(obj2b).
 
 # Visualizations
 
 ## Total References Bar Plot {#obj1}
 
-The most effective method for displaying the total number of references for every concept or impact is by using a bar chart. This visual representation includes four distinct categories: "KS Defining Concepts", "KS Individual Impact", "Caregiver Impact", and "Age", each depicted with varying colors to differentiate between them. Additionally, the data is organized in descending order to enable a clearer comparison of the references across different categories.
-
+A bar chart is the most effective method for displaying the total number of references for every concept or impact. This visual representation includes four distinct categories: “KS Defining Concepts,” “KS Individual Impact,” “Caregiver Impact,” and “Age,” each depicted with varying colors to differentiate between them. Additionally, the data is organized in descending order to enable a more explicit comparison of the references across different categories.
 
 ### Analysis
 
-From Figure \@ref(fig:bar-plot), we are able to see that the most referenced KS Defining Concept across all age groups was "communication." The most referenced KS Individual Impact was "health" compared to "emotional" being the most referenced caregiver impact across all age groups. The Age bar plot allows one to observe that in their interviews, caregivers most often referenced their children between the ages of 5 and 11.
+Figure \@ref(fig:bar-plot) shows that the most referenced KS-defining concept across all age groups was “communication.” The most referenced KS Individual Impact was “health” compared to “emotional” being the most referenced caregiver impact across all age groups. The Age bar plot allows one to observe that caregivers most often referenced their children between the ages of 5 and 11 in their interviews.
 
 
 ```{r include=FALSE}
@@ -73,7 +72,7 @@ p1 <- ggplot(CI1, aes(x = total, y = reorder(CI, total), fill = color_value)) +
   theme_classic() +
   theme(legend.position = "none",
         plot.margin = margin(t = 10, r = 5, b = 10, l = 0, unit = "pt")) +
-  labs(x = NULL, y = "Caregiver 
+  labs(x = NULL, y = " KS Caregiver 
 Impacts")
 p1 <- p1 + theme(
   axis.title.y = element_text(margin = margin(t = 0, r = 23, b = 0, l = 10, unit = "pt"))
@@ -336,19 +335,35 @@ care_impacts <- care_impacts %>% pivot_longer(names_to = "age", values_to = "val
 symptoms_freq <- symptoms %>% group_by(age) %>% 
   mutate(sum = sum(value), freq = value/sum)
 
+symptoms$symptom <- factor(symptoms$symptom, levels=c('Communication',
+                                                      'Motor',
+                                                      'Behavioral & Neurodevelopmental',
+                                                      'Neurological',
+                                                      'Gastrointestinal',
+                                                      'Emotional',
+                                                      'Sleep',
+                                                      'Cardiorespiratory',
+                                                      'Cognition',
+                                                      'Post-pubertal regression',
+                                                      'Musculoskeletal',
+                                                      'Opthalmalogic',
+                                                      'Hearing',
+                                                      'Immune'
+                                                      ))
+
 #stacked barplots for KS Defining Concepts
 plot1 <- ggplot(symptoms, aes(fill=symptom, y=value, x=age)) + 
   geom_bar(position="fill", stat="identity") +
   labs(x = "Age Group", y = "Frequencies") + 
   theme_grey() +
   scale_fill_manual(name = "A. KS Defining Concepts",
-                    values = c("#cc6666", "#cc8a90", "#ccb966", "#e59366", "#2d9f48", "#8acc66", "#94e1a6", "#66bbe5", "#6b98e6", "#4052c9", "#7e40c9", "#a766cc", "#c94072", "#d15c5c"))+
+                    values = c("#cc6666", "#cc8a90", "#ccb966", "#e59366", "#2d9f48", "#71b04d", "#94e1a6", "#66bbe5", "#6b98e6", "#4052c9", "#7e40c9", "#a766cc", "#c94072", "#d15c5c"))+
   scale_x_discrete(labels=c("<2","2-4","5-11", "12-17")) +
   theme(legend.title = element_text(face = "bold")) +
-  annotate("text", x = 1, y = 0.43, label = 0.1786) +
-  annotate("text", x = 2, y = 0.26, label = 0.2393) +
-  annotate("text", x = 3, y = 0.65, label = 0.2034) +
-  annotate("text", x = 4, y = 0.90, label = 0.1749)
+  annotate("text", x = 1, y = 0.85, label = 0.1786) +
+  annotate("text", x = 2, y = 0.66, label = 0.2393) +
+  annotate("text", x = 3, y = 0.90, label = 0.2034) +
+  annotate("text", x = 4, y = 0.72, label = 0.1749)
 ```
 
 ```{r, echo = FALSE}
@@ -356,19 +371,24 @@ plot1 <- ggplot(symptoms, aes(fill=symptom, y=value, x=age)) +
 ind_freq <- ind_impacts %>% group_by(age) %>% 
   mutate(sum = sum(value), freq = value/sum)
 
+ind_impacts$impact <- factor(ind_impacts$impact, levels=c('Health',
+                                                          'Social',
+                                                          'Daily living',
+                                                          'Education'))
+
 #stacked barplots for KS individual impacts
 plot2 <- ggplot(ind_impacts, aes(fill=impact, y=value, x=age)) + 
   geom_bar(position="fill", stat="identity") +
   labs(x = "Age Group", y = "Frequencies") + 
   theme_grey() +
   scale_fill_manual(name = "B. KS Individual Impacts",
-                    values = c("#cc6666", "#ccb966","#2d9f48", "#6b98e6"))+
+                    values = c("#bd8dc9", "#6f99bf","#ba6575", "#637594"))+
   scale_x_discrete(labels=c("<2","2-4","5-11", "12-17")) +
   theme(legend.title = element_text(face = "bold")) +
-  annotate("text", x = 1, y = 0.5, label = 0.9355) +
-  annotate("text", x = 2, y = 0.5, label = 0.65) +
-  annotate("text", x = 3, y = 0.5, label = 0.4957) +
-  annotate("text", x = 4, y = 0.5, label = 0.3626)
+  annotate("text", x = 1, y = 0.77, label = 0.9355) +
+  annotate("text", x = 2, y = 0.77, label = 0.65) +
+  annotate("text", x = 3, y = 0.77, label = 0.4957) +
+  annotate("text", x = 4, y = 0.77, label = 0.3626)
 ```
 
 ```{r, echo = FALSE}
@@ -376,19 +396,24 @@ plot2 <- ggplot(ind_impacts, aes(fill=impact, y=value, x=age)) +
 care_freq <- care_impacts %>% group_by(age) %>% 
   mutate(sum = sum(value), freq = value/sum)
 
+care_impacts$impact <- factor(care_impacts$impact, levels=c('Emotional',
+                                                          'Social',
+                                                          'Financial & professional',
+                                                          'Health'))
+
 #stacked barplots for KS caregiver impacts
 plot3 <- ggplot(care_impacts, aes(fill=impact, y=value, x=age)) + 
   geom_bar(position="fill", stat="identity") +
   labs(x = "Age Group", y = "Frequencies") + 
   theme_grey() +
   scale_fill_manual(name = "C. KS Caregiver Impacts",
-                    values = c("#cc6666", "#ccb966","#2d9f48", "#6b98e6"))+
+                    values = c("#71b04d", "#6f99bf","#e09a6e", "#bd8dc9"))+
   scale_x_discrete(labels=c("<2","2-4","5-11", "12-17")) +
   theme(legend.title = element_text(face = "bold")) +
   annotate("text", x = 1, y = 0.75, label = 0.6667) +
   annotate("text", x = 2, y = 0.75, label = 0.5366) +
   annotate("text", x = 3, y = 0.75, label = 0.4875) +
-  annotate("text", x = 4, y = 0.2, label = 0.4028)
+  annotate("text", x = 4, y = 0.49, label = 0.4028)
 ```
 
 ```{r stacked-plot, fig.width=12, fig.height = 7, echo = FALSE, fig.cap = "Stacked bar plot of references frequencies. Labeled frequencies represent the most frequent concept or impact for that age group."}
@@ -398,9 +423,9 @@ grid.arrange(plot1, arrangeGrob(plot2, plot3), ncol = 2)
 
 ### Analysis
 
-These stacked bar plots are a great way to observe changes in the frequency of references across different age groups at a high level. For example, in stacked bar plot B (upper right), it is clear to see that health is the most referenced individual impact for children under the age of 2. However, as the age groups increase, the references to health decreases. This suggests that the significance of the child's health decreases as the child gets older when other impacts like social and daily living impacts begin to matter more. A similar pattern can be seen in bar plot C (bottom right). As the age groups increase in age, the frequencies of references to emotional caregiver impacts decreases while social impacts increase.
+These stacked bar plots are a great way to observe changes in the frequency of references across different age groups at a high level. For example, in stacked bar plot B (upper right), it is clear to see that health is the most referenced individual impact for children under the age of 2. However, as the age groups increase, the references to health decreases. A similar pattern can be seen in bar plot C (bottom right). As the age groups increase in age, the frequencies of references to emotional caregiver impacts decreases while social impacts increase.
 
-There is a challenge with the interpretability of stacked bar plots. While the patterns mentioned above are clear to see looking at the plots, there is a difficulty in comparing concepts or impacts when they do not start at a common baseline. For example in bar plot A (left), it is hard to compare the references to gastrointestinal concepts between the age groups of less than 2 and 2 to 4 year olds. Additionally, due to the stacked nature of the bar plots, it is also difficult to determine what the exact frequency is of the referenced concept or impact unless it is the bottom bar.
+There is a challenge with the interpretability of stacked bar plots. While the patterns mentioned above are clear to see looking at the plots, there is a difficulty in comparing concepts or impacts when they do not start at a common baseline. For example, in bar plot A (left), comparing the references to gastrointestinal concepts between the age groups of less than 2 and 2 to 4-year-olds is hard. Additionally, due to the stacked nature of the bar plots, it is also challenging to determine the exact frequency of the referenced concept or impact unless it is the bottom bar.
 
 # Conclusion
 
