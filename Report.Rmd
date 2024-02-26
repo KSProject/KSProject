@@ -182,9 +182,9 @@ concepts_2$age <- factor(concepts_2$age, levels = c("Under 2", "2-4 Years", "5-1
 
 concepts_2$Symptoms <- factor(concepts_2$Symptoms, levels = c("Immune", "Hearing", 
                                                               "Opthalmalogic", "Musculoskeletal",
-                                                              "Post−pubertal regression",
+                                                              'Post-pubertal regression',
                                                               "Cognition", "Cardiorespiratory", 
-                                                              "Sleep", "Emotional", "Gastrointentinal", 
+                                                              "Sleep", "Emotional", "Gastrointestinal", 
                                                               "Neurological",
                                                               "Behavioral & Neurodevelopmental", 
                                                               "Motor", "Communication"))
@@ -288,10 +288,10 @@ care_impacts_2 <- pivot_longer(care_impacts_2, cols = c(`Under 2`, `2-4 Years`, 
 
 care_impacts_2$age <- factor(care_impacts_2$age, levels = c("Under 2", "2-4 Years", "5-11 Years", "12-17 Years"))
 
-care_impacts_2$Impacts <- factor(care_impacts_2$Impacts, levels = c("Education",
-                                                                  "Daily living",
+care_impacts_2$Impacts <- factor(care_impacts_2$Impacts, levels = c("Health",
+                                                                  'Financial & professional',
                                                                   "Social",
-                                                                  "Health"))
+                                                                  "Emotional"))
 
 
 #heatmap (looks a little childish. Want to look more sophisticated. Perhaps interactive)
@@ -320,9 +320,9 @@ grid.arrange(heatmap_1, arrangeGrob(heatmap_2, heatmap_3), ncol=2)
 
 ### Analysis
 
-Interpreting the graph can be done like the following. For the "Impacts on Caregiver" heatmap (bottom right) we can see that the emotional impacts were mentioned at a higher frequency than all other impacts for the Under 2 category. Emotional impact continues to be the most talked about for ages 2-4 and 5-11. Then comes second place to social impacts for age category 12-17.
+Interpreting the graph can be done like the following. For "KS Caregiver Impacts" heatmap (bottom right) we can see that the emotional impacts were mentioned at a higher frequency than all other impacts for the Under 2 category. Emotional impact continues to be the most talked about for ages 2-4 and 5-11. Then comes second place to social impacts for age category 12-17.
 
-The "Symptoms" (left) heatmap is an a scale from 0.00-0.25, whereas the "Impacts on Caregiver" and "Impacts on Individual" (upper right) are on a 0.00-1.00 scale. The reasoning is that the symptom most mentioned in interviews had a frequency of 0.24. Putting the heatmap on a 0.00-1.00 scale made it less visually effective for comparison purposes. 
+The "KS Defining Concepts" (left) heatmap is an a scale from 0.00-0.25, whereas the "KS Caregiver Impacts" and "KS Caregiver Impacts" (upper right) are on a 0.00-1.00 scale. The reasoning is that the symptom most mentioned in interviews had a frequency of 0.24. Putting the heatmap on a 0.00-1.00 scale made it less visually effective for comparison purposes. 
 
 
 ## Age Group Frequencies Bar Plot {#obj2b}
