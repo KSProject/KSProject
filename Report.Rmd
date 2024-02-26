@@ -310,7 +310,7 @@ heatmap_3 <- ggplot(care_impacts_2, aes(x=age, y=Impacts, fill= Frequencies)) +
     axis.text.y = element_text(size = 12),
     plot.margin = margin(t = 0, r = .1, b = 0, l = .1, unit = "cm")
    )
-     
+     #
 ```
 
 ```{r freq-plot, fig.width=13, fig.height = 7, echo = FALSE, fig.cap = "Heatmap of references frequencies."}
