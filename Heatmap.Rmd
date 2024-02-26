@@ -2,7 +2,9 @@
 title: "Heatmap"
 author: "Amie Thomas"
 date: "2024-02-08"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -53,6 +55,16 @@ concepts_2 <- pivot_longer(concepts_2, cols = c(`Under 2`, `2-4 Years`, `5-11 Ye
 
 concepts_2$age <- factor(concepts_2$age, levels = c("Under 2", "2-4 Years", "5-11 Years", "12-17 Years"))
 
+concepts_2$Symptoms <- factor(concepts_2$Symptoms, levels = c("Immune", "Hearing", 
+                                                              "Opthalmalogic", "Post−pubertal regression",
+                                                              "Cognition", "Cardiorespiratory",  "Sleep",
+                                                              "Emotional", "Gastrointentinal", 
+                                                              "Neurological",
+                                                              "Behavioral  & Neurodevelopmental", "Motor",
+                                                              "Communication"))
+  
+ 
+
 #heatmap
 heatmap_1 <- ggplot(concepts_2, aes(x=age, y=Symptoms, fill= Frequencies)) +
    geom_tile(color = "black") +  
@@ -60,7 +72,7 @@ heatmap_1 <- ggplot(concepts_2, aes(x=age, y=Symptoms, fill= Frequencies)) +
    geom_tile(color = "white", fill = NA) +  
    geom_text(aes(label = sprintf("%.2f", Frequencies)), color = "black", size = 5) +  # Add text labels
    scale_fill_gradient(low="white", high="darkred") + 
-   labs(x = NULL, y = "Symptoms")+
+   labs(x = NULL, y = "A. KS Defining Concepts")+
    scale_x_discrete(expand = c(0, 0), position = 'top', labels = c("Under 2", limits = c(0, 1))) +
    theme_minimal() +  
    theme(panel.grid = element_blank())+
@@ -108,7 +120,10 @@ ind_impacts_2 <- pivot_longer(ind_impacts_2, cols = c(`Under 2`, `2-4 Years`, `5
 
 ind_impacts_2$age <- factor(ind_impacts_2$age, levels = c("Under 2", "2-4 Years", "5-11 Years", "12-17 Years"))
 
-
+ind_impacts_2$Impacts <- factor(ind_impacts_2$Impacts, levels = c("Education impact",
+                                                                  "Daily living impact",
+                                                                  "Social impact",
+                                                                  "Health impact"))
 #heatmap
 heatmap_2 <- ggplot(ind_impacts_2, aes(x=age, y=Impacts, fill= Frequencies)) +
    geom_tile(color = "black") +  
@@ -116,7 +131,7 @@ heatmap_2 <- ggplot(ind_impacts_2, aes(x=age, y=Impacts, fill= Frequencies)) +
    geom_tile(color = "white", fill = NA) +  
    geom_text(aes(label = sprintf("%.2f", Frequencies)), color = "black", size = 5) +  # Add text labels
    scale_fill_gradient(low = "white", high = "darkgreen", limit = c(0,1))+
-   labs(x = NULL, y = "Impacts on the Individual")+
+   labs(x = NULL, y = "B. KS Individual Impacts")+
    scale_x_discrete(expand = c(0, 0),position = 'top') +
    theme_minimal() +  
    theme(panel.grid = element_blank())+
@@ -163,14 +178,17 @@ care_impacts_2 <- pivot_longer(care_impacts_2, cols = c(`Under 2`, `2-4 Years`, 
 
 care_impacts_2$age <- factor(care_impacts_2$age, levels = c("Under 2", "2-4 Years", "5-11 Years", "12-17 Years"))
 
+care_impacts_2$Impacts <- factor(care_impacts_2$Impacts, levels = c("Education impact",
+                                                                  "Daily living impact",
+                                                                  "Social impact",
+                                                                  "Health impact"))
 
-#heatmap (looks a little childish. Want to look more sophisticated. Perhaps interactive)
 heatmap_3 <- ggplot(care_impacts_2, aes(x=age, y=Impacts, fill= Frequencies)) +
    geom_tile(color = "black") +  
    geom_tile(color = "white", fill = NA) +  
    geom_text(aes(label = sprintf("%.2f", Frequencies)), color = "black", size = 5) +  #add numbers on heatmap
    scale_fill_gradient(low="white", high="darkblue", limits = c(0,1)) + 
-   labs(x = NULL, y = "Impacts on the Caregiver")+
+   labs(x = NULL, y = "C. KS Caregiver Impacts")+
    scale_x_discrete(expand = c(0, 0),position = 'top') +
    theme_minimal() +  
    theme(panel.grid = element_blank())+
