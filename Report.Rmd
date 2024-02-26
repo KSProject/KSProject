@@ -59,7 +59,7 @@ row.names(Age1) <- NULL
 CI1$color_value <- CI1$total / sum(CI1$total)
 p1 <- ggplot(CI1, aes(x = total, y = reorder(CI, total), fill = color_value)) +
   geom_bar(stat="identity", width = 0.7) +
-  scale_fill_gradient(low="lightgreen", high="green") +
+  scale_fill_gradient(low="lightgrey", high="darkblue") +
   theme_classic() +
   theme(legend.position = "none",
         plot.margin = margin(t = 10, r = 5, b = 10, l = 0, unit = "pt")) +
@@ -72,7 +72,7 @@ p1 <- p1 + theme(
 KSI1$color_value <- KSI1$total / sum(KSI1$total)
 p2 <- ggplot(KSI1, aes(x = total, y = reorder(KII, total), fill = color_value)) +
   geom_bar(stat="identity", width = 0.7) +
-  scale_fill_gradient(low="pink", high="red") +
+  scale_fill_gradient(low="grey", high="darkgreen") +
   theme_classic() +
   theme(legend.position = "none",
         axis.title.y = element_text(),
@@ -86,7 +86,7 @@ p2 <- p2 + theme(
 KSD1$color_value <- KSD1$total / sum(KSD1$total)
 p3 <- ggplot(KSD1, aes(x = total, y = reorder(KDC, total), fill = color_value)) +
   geom_bar(stat="identity", width = 0.7) +
-  scale_fill_gradient(low="lightblue", high="blue") +
+  scale_fill_gradient(low="lightgrey", high="darkred") +
   theme_classic() +
   theme(legend.position = "none",
         axis.title.y = element_text(),
@@ -100,7 +100,7 @@ p3 <- p3 + theme(
 Age1$color_value <- Age1$total / sum(Age1$total)
 p4 <- ggplot(Age1, aes(x = total, y = reorder(age, total), fill = color_value)) +
   geom_bar(stat="identity", width = 0.7) +
-  scale_fill_gradient(low="lightblue", high="blue") +
+  scale_fill_gradient(low="lightgrey", high="purple") +
   theme_classic() +
   theme(legend.position = "none",
         axis.title.y = element_text(),
