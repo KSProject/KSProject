@@ -41,11 +41,7 @@ plot1 <- ggplot(symptoms, aes(fill=symptom, y=value, x=age)) +
   scale_fill_manual(name = "A. KS Defining Concepts",
                     values = c("#cc6666", "#cc8a90", "#ccb966", "#e59366", "#2d9f48", "#8acc66", "#94e1a6", "#66bbe5", "#6b98e6", "#4052c9", "#7e40c9", "#a766cc", "#c94072", "#d15c5c"))+
   scale_x_discrete(labels=c("<2","2-4","5-11", "12-17")) +
-  theme(axis.text.y = element_text(size = 13, family = "Times New Roman"),
-        axis.text.x = element_text(size = 11, family = "Times New Roman"), 
-        axis.title = element_text(size = 12, family = "Times New Roman"),
-        legend.text = element_text(size = 11, family = "Times New Roman"),
-        legend.title = element_text(size = 11, face = "bold", family = "Times New Roman")) +
+  theme(legend.title = element_text(face = "bold")) +
   annotate("text", x = 1, y = 0.43, label = 0.1786) +
   annotate("text", x = 2, y = 0.26, label = 0.2393) +
   annotate("text", x = 3, y = 0.65, label = 0.2034) +
@@ -67,11 +63,7 @@ plot2 <- ggplot(ind_impacts, aes(fill=impact, y=value, x=age)) +
   scale_fill_manual(name = "B. KS Individual Impacts",
                     values = c("#cc6666", "#ccb966","#2d9f48", "#6b98e6"))+
   scale_x_discrete(labels=c("<2","2-4","5-11", "12-17")) +
-  theme(axis.text.y = element_text(size = 13, family = "Times New Roman"),
-        axis.text.x = element_text(size = 11, family = "Times New Roman"), 
-        axis.title = element_text(size = 12, family = "Times New Roman"),
-        legend.text = element_text(size = 11, family = "Times New Roman"),
-        legend.title = element_text(size = 11, face = "bold", family = "Times New Roman")) +
+  theme(legend.title = element_text(face = "bold")) +
   annotate("text", x = 1, y = 0.5, label = 0.9355) +
   annotate("text", x = 2, y = 0.5, label = 0.65) +
   annotate("text", x = 3, y = 0.5, label = 0.4957) +
@@ -93,11 +85,7 @@ plot3 <- ggplot(care_impacts, aes(fill=impact, y=value, x=age)) +
   scale_fill_manual(name = "C. KS Caregiver Impacts",
                     values = c("#cc6666", "#ccb966","#2d9f48", "#6b98e6"))+
   scale_x_discrete(labels=c("<2","2-4","5-11", "12-17")) +
-  theme(axis.text.y = element_text(size = 13, family = "Times New Roman"),
-        axis.text.x = element_text(size = 11, family = "Times New Roman"), 
-        axis.title = element_text(size = 12, family = "Times New Roman"),
-        legend.text = element_text(size = 11, family = "Times New Roman"),
-        legend.title = element_text(size = 11, face = "bold", family = "Times New Roman")) +
+  theme(legend.title = element_text(face = "bold")) +
   annotate("text", x = 1, y = 0.75, label = 0.6667) +
   annotate("text", x = 2, y = 0.75, label = 0.5366) +
   annotate("text", x = 3, y = 0.75, label = 0.4875) +
