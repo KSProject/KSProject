@@ -102,7 +102,7 @@ p3 <- ggplot(KSD1, aes(x = total, y = reorder(KDC, total), fill = color_value)) 
         axis.title.y = element_text(),
         plot.margin = margin(t = 10, r = 5, b = 10, l = 0, unit = "pt")) +
   labs(x = NULL, y = "KS Defining 
-Concepts")
+Features")
 p3 <- p3 + theme(
   axis.title.y = element_text(margin = margin(t = 0, r = 10, b = 0, l = 10, unit = "pt"))
 )
@@ -199,7 +199,7 @@ heatmap_1 <- ggplot(concepts_2, aes(x=age, y=Symptoms, fill= Frequencies)) +
    geom_tile(color = "white", fill = NA) +  
    geom_text(aes(label = sprintf("%.2f", Frequencies)), color = "black", size = 5) +  # Add text labels
    scale_fill_gradient(low="white", high="darkred") + 
-   labs(x = NULL, y = "A. KS Defining Concepts")+
+   labs(x = NULL, y = "A. KS Defining Features")+
    scale_x_discrete(expand = c(0, 0), position = 'top', labels = c("Under 2", limits = c(0, 1))) +
    theme_minimal() +  
    theme(panel.grid = element_blank())+
@@ -378,7 +378,7 @@ plot1 <- ggplot(symptoms, aes(fill=symptom, y=value, x=age)) +
   geom_bar(position="fill", stat="identity") +
   labs(x = "Age Group", y = "Frequencies") + 
   theme_grey() +
-  scale_fill_manual(name = "A. KS Defining Concepts",
+  scale_fill_manual(name = "A. KS Defining Features",
                     values = c("#cc6666", "#cc8a90", "#ccb966", "#e59366", "#2d9f48", "#71b04d", "#94e1a6", "#66bbe5", "#6b98e6", "#4052c9", "#7e40c9", "#a766cc", "#c94072", "#d15c5c"))+
   scale_x_discrete(labels=c("<2","2-4","5-11", "12-17")) +
   theme(legend.title = element_text(face = "bold")) +
