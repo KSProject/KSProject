@@ -37,33 +37,27 @@ library(ggplot2)
 library(gridExtra)
 
 # Data cleaning
-KSdata <- read_excel("KS_data.xlsx", sheet = 1)
+KSdata <- read_excel("KS_data.xlsx", sheet = 2)
 
-KSD <- KSdata[2:15, ]
+KSD <- KSdata[3:16, ]
 KSD1 <- KSD |>
-  select(c("...1", "Total references"))
+  select(c("...1", "Total number of references"))
 colnames(KSD1) <- c("KDC", "total")
 
-KSI <- KSdata[18:21, ]
+KSI <- KSdata[19:23, ]
 KSI1 <- KSI |>
-  select(c("...1", "Total references"))
+  select(c("...1", "Total number of references"))
 colnames(KSI1) <- c("KII", "total")
 
-CI <- KSdata[24:27, ]
+CI <- KSdata[26:31, ]
 CI1 <- CI |>
-  select(c("...1", "Total references"))
+  select(c("...1", "Total number of references"))
 colnames(CI1) <- c("CI", "total")
 
-Age <- KSdata |>
-  select(c(2:5))
-Age <- colSums(Age, na.rm = TRUE)
-Age <- as.data.frame(t(Age))
-rownames(Age) <- 'total'
-colnames(Age) <- c("Under 2", "2-4", "5-11", "12-17")
-
-Age_transposed <- as.data.frame(t(Age))
-Age1 <- data.frame(age = row.names(Age_transposed), total = unlist(Age_transposed, use.names = FALSE))
-row.names(Age1) <- NULL
+Age <- KSdata[34:37, ]
+Age1 <- Age |>
+  select(c("...1", "Total number of references"))
+colnames(Age1) <- c("age", "total")
 
 # Plot of the data
 CI1$color_value <- CI1$total / sum(CI1$total)
@@ -76,7 +70,7 @@ p1 <- ggplot(CI1, aes(x = total, y = reorder(CI, total), fill = color_value)) +
   labs(x = NULL, y = " KS Caregiver 
 Impacts")
 p1 <- p1 + theme(
-  axis.title.y = element_text(margin = margin(t = 0, r = 23, b = 0, l = 10, unit = "pt"))
+  axis.title.y = element_text(margin = margin(t = 0, r = 39, b = 0, l = 10, unit = "pt"))
 )
 
 KSI1$color_value <- KSI1$total / sum(KSI1$total)
@@ -90,7 +84,7 @@ p2 <- ggplot(KSI1, aes(x = total, y = reorder(KII, total), fill = color_value)) 
   labs(x = NULL, y = "KS Individual 
 Impacts")
 p2 <- p2 + theme(
-  axis.title.y = element_text(margin = margin(t = 0, r = 83, b = 0, l = 10, unit = "pt"))
+  axis.title.y = element_text(margin = margin(t = 0, r = 124, b = 0, l = 10, unit = "pt"))
 )
 
 KSD1$color_value <- KSD1$total / sum(KSD1$total)
@@ -104,7 +98,7 @@ p3 <- ggplot(KSD1, aes(x = total, y = reorder(KDC, total), fill = color_value)) 
   labs(x = NULL, y = "KS Defining 
 Features")
 p3 <- p3 + theme(
-  axis.title.y = element_text(margin = margin(t = 0, r = 10, b = 0, l = 10, unit = "pt"))
+  axis.title.y = element_text(margin = margin(t = 0, r = 54, b = 0, l = 10, unit = "pt"))
 )
 
 Age1$color_value <- Age1$total / sum(Age1$total)
@@ -117,7 +111,7 @@ p4 <- ggplot(Age1, aes(x = total, y = reorder(age, total), fill = color_value)) 
         plot.margin = margin(t = 10, r = 5, b = 10, l = 0, unit = "pt")) +
   labs(x = NULL, y = "Age")
 p4 <- p4 + theme(
-  axis.title.y = element_text(margin = margin(t = 0, r = 135, b = 0, l = 10, unit = "pt"))
+  axis.title.y = element_text(margin = margin(t = 0, r = 0, b = 0, l = 10, unit = "pt"))
 )
 
 p4 <- p4 + 
