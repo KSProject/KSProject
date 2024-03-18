@@ -70,7 +70,7 @@ p1 <- ggplot(CI1, aes(x = total, y = reorder(CI, total), fill = color_value)) +
   labs(x = NULL, y = " KS Caregiver 
 Impacts")
 p1 <- p1 + theme(
-  axis.title.y = element_text(margin = margin(t = 0, r = 39, b = 0, l = 10, unit = "pt"))
+  axis.title.y = element_text(margin = margin(t = 0, r = 59, b = 0, l = 10, unit = "pt"))
 )
 
 KSI1$color_value <- KSI1$total / sum(KSI1$total)
@@ -84,7 +84,7 @@ p2 <- ggplot(KSI1, aes(x = total, y = reorder(KII, total), fill = color_value)) 
   labs(x = NULL, y = "KS Individual 
 Impacts")
 p2 <- p2 + theme(
-  axis.title.y = element_text(margin = margin(t = 0, r = 124, b = 0, l = 10, unit = "pt"))
+  axis.title.y = element_text(margin = margin(t = 0, r = 144, b = 0, l = 10, unit = "pt"))
 )
 
 KSD1$color_value <- KSD1$total / sum(KSD1$total)
@@ -98,7 +98,7 @@ p3 <- ggplot(KSD1, aes(x = total, y = reorder(KDC, total), fill = color_value)) 
   labs(x = NULL, y = "KS Defining 
 Features")
 p3 <- p3 + theme(
-  axis.title.y = element_text(margin = margin(t = 0, r = 54, b = 0, l = 10, unit = "pt"))
+  axis.title.y = element_text(margin = margin(t = 0, r = 74, b = 0, l = 10, unit = "pt"))
 )
 
 Age1$color_value <- Age1$total / sum(Age1$total)
@@ -112,7 +112,7 @@ p4 <- ggplot(Age1, aes(x = total, y = reorder(age, total), fill = color_value)) 
   labs(x = NULL, y = "Developmental Age 
 Groups")
 p4 <- p4 + theme(
-  axis.title.y = element_text(margin = margin(t = 0, r = 0, b = 0, l = 10, unit = "pt"))
+  axis.title.y = element_text(margin = margin(t = 0, r = 8, b = 0, l = 10, unit = "pt"))
 )
 
 p4 <- p4 + 
